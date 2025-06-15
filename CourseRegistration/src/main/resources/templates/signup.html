@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Learning Adventure! | EduFun</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap');
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #f0f9ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://img.freepik.com/free-vector/hand-drawn-school-pattern_23-2149073132.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .register-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            padding: 40px;
+            width: 380px;
+            text-align: center;
+            border: 2px solid #a8d8ff;
+            animation: slideUp 0.6s;
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background-color: #ff9e7d;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        h1 {
+            color: #3a86ff;
+            margin-bottom: 25px;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #3a86ff;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #a8d8ff;
+            border-radius: 12px;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: all 0.3s;
+            background-color: #f8fcff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff9e7d;
+            box-shadow: 0 0 0 3px rgba(255, 158, 125, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(to right, #ff9e7d, #ff7aa8);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 15px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(255, 158, 125, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 158, 125, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            margin-top: 25px;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .login-link a {
+            color: #3a86ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 38px;
+            color: #a8d8ff;
+        }
+
+        .password-rules {
+            font-size: 13px;
+            color: #888;
+            margin-top: 5px;
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        .cute-decoration {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .decoration-1 { top: 10%; left: 5%; transform: rotate(-10deg); }
+        .decoration-2 { bottom: 10%; right: 5%; transform: rotate(10deg); }
+        .decoration-3 { top: 25%; right: 8%; }
+
+         /* Only the alert styles as requested */
+    .alert {
+        padding: 12px 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .alert-danger {
+        background-color: #ffebee;
+        color: #d32f2f;
+        border: 1px solid #ffcdd2;
+    }
+
+    .alert-success {
+        background-color: #e8f5e9;
+        color: #388e3c;
+        border: 1px solid #c8e6c9;
+    }
+
+    </style>
+</head>
+<body>
+<div class="cute-decoration decoration-1">📝</div>
+<div class="cute-decoration decoration-2">🎒</div>
+<div class="cute-decoration decoration-3">✏️</div>
+
+<div class="register-container">
+    <div class="logo">E+</div>
+    <h1>Create Your Account</h1>
+
+    <!-- Added exactly as requested -->
+    <div th:if="${error}" class="alert alert-danger">
+        <span th:text="${error}">Error message appears here</span>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success">
+        <span th:text="${success}">Success message appears here</span>
+    </div>
+
+    <form action="/signup" method="POST">
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="name" placeholder="superlearner" required>
+            <span class="input-icon">👩‍🎓</span>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="student@edufun.com" required>
+            <span class="input-icon">📧</span>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+            <span class="input-icon">🔒</span>
+            <div class="password-rules">Use 8+ characters with mix of letters & numbers</div>
+        </div>
+
+        <div class="input-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••" required>
+            <span class="input-icon">🔑</span>
+        </div>
+
+        <button type="submit" class="btn">Start Learning Journey!</button>
+    </form>
+
+    <div class="login-link">
+        Already have an account? <a href="#">Log in here</a>
+    </div>
+</div>
+</body>
+</html>

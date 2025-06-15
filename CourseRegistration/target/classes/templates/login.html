@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFun - Learning Adventure Awaits!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap');
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #f0f9ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://img.freepik.com/free-vector/hand-drawn-school-background_23-2149464866.jpg?w=1380&t=st=1700000000~exp=1700000600~hmac=xxxxxxxx');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            padding: 40px;
+            width: 350px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 2px solid #a8d8ff;
+            animation: bounceIn 0.8s;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background-color: #ffd166;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        h1 {
+            color: #3a86ff;
+            margin-bottom: 30px;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #3a86ff;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #a8d8ff;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s;
+            background-color: #f8fcff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3a86ff;
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        .btn {
+            background-color: #3a86ff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(58, 134, 255, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #2667cc;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(58, 134, 255, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 20px;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password:hover {
+            color: #3a86ff;
+        }
+
+        .signup-link {
+            margin-top: 30px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: #3a86ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .cute-decoration {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        .decoration-1 { top: 20%; left: 10%; transform: rotate(-15deg); }
+        .decoration-2 { bottom: 15%; right: 10%; transform: rotate(15deg); }
+
+        .alert {
+        padding: 12px 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .alert-danger {
+        background-color: #ffebee;
+        color: #d32f2f;
+        border: 1px solid #ffcdd2;
+    }
+
+    .alert-success {
+        background-color: #e8f5e9;
+        color: #388e3c;
+        border: 1px solid #c8e6c9;
+    }
+
+    </style>
+</head>
+<body>
+<div class="cute-decoration decoration-1">✏️</div>
+<div class="cute-decoration decoration-2">📚</div>
+
+<div class="login-container">
+    <div class="logo">E</div>
+    <h1>Welcome Back!</h1>
+
+    <!-- Error/Success Messages -->
+    <div th:if="${error}" class="alert alert-danger">
+        <span th:text="${error}">Error message appears here</span>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success">
+        <span th:text="${success}">Success message appears here</span>
+    </div>
+
+    <!-- Corrected form action and added CSRF token -->
+    <form action="/login" method="POST">
+
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="student@edufun.com" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn">Log In</button>
+
+        <a href="/forgot-password" class="forgot-password">Forgot password?</a>
+    </form>
+
+    <div class="signup-link">
+        New to EduFun? <a href="/register">Create an account</a>
+    </div>
+</div>
+</body>
+</html>
